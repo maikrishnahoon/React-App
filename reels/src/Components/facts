@@ -1,0 +1,28 @@
+
+               order-->
+               1.firebase signup(user signup) --- l1
+               2.person profile image upload  ----l2
+               3.store person's object in Users collection in firestore ---l2
+L-1...
+
+1.We are not exporting whole firebase so no-one can modifiy it,instead we are exportin its compon that we need like auth --->(firebase.js file)
+2.onAuthStateChanged(user)---> EventListner which observe state change and provide us cause of state change(user) ...(AuthProvider.js)
+3.to show who commented on post and its pic,userName etc we creatded id which store all the userinfo.
+4. flow---->
+Firebase------>
+                UniqueId------>
+                                Users--------->
+                                                document----> 
+                                                              id => uid  
+
+
+ ...................................L-2.........................................
+       Auth contains only email      
+               hierarchy...
+                          firestore
+                             |
+                            collection
+                              |
+                            document ==== contain multiple docucments (here a doc represent a user)
+                                |
+                             multiple key value pair contain user description like name,piclinketc   
