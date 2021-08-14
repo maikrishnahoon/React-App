@@ -1,0 +1,92 @@
+ Hooks:- Hooks are the functions that let you hook into the react state & lifecycle methods from functional components..
+ Hooks don't work in class components.
+ Called inside a function
+It let's functional components to make their state and lifecycles.
+It lets us add local state to React function components 
+
+Need?
+1.Escape boiler plate code ffrom class components.
+2.No worries to handle this.
+3.Seperation of logics.
+ ***********************useState***********************/
+useState:- It is a Hook.
+useState returns a pair: the current state value and a function that lets you update it.
+Funnction is  similar to [this.setState] in a class.
+The only argument to useState is the initial state.
+
+in class component 
+this.state={
+    count =0; // ye thi vha initial value that is now passed as an arguement in use state as its initial state.
+
+}
+this.setState({
+   count: updated value //this updation of state is done by the functiion
+    });
+
+Unlike with classes, the state doesn’t have to be an object.
+//update state
+To updte the state instead of using count: this.state.count + 1  we use 
+the function passed to update the state 
+  setCount(count-1);
+
+//Reading state
+When we want to display the current count in a class, we read this.state.count but here we directly write {function name}
+
+React will then re-render the function component, passing the new count value to it.
+//EVERYTIME STATE WILL CHANGE THE WHOLE FUNCTION WILL RE RENDER/EXECUTED.
+Will state create again and again?
+No, React has implemented hooks in a way that it knows when function has been executed 1 time.Only at this time new state is created and when the function runs again the useState line is skipped in re render.
+
+/***************************diff between usestate and setstate *******************************************/
+In setState we only use dto write the key wwhose value needs to be changed and it didn't effect the other values.
+In useState whatever will be passed in functiion will get set.
+
+********************************************USe-effect**********************************************
+variation-1:
+=> no optional dependency array is passed.
+=>  it runs after every render
+=> work as Componentdidmount+ComponentdidUpdate..(runs one time after first render + runs every time after re-rendering)
+=>Try avoiding change in state....refrence=>infinity.js(remove emptY dependency array)
+variation-2:
+=>there is presence of dependency array
+=>empty dependcy array
+=>work as Componentdidmount(runs only one time after first render)
+variation-3:
+=>non-empty dependency array
+=>runs after those renderes that are that are caused due to state change of passed value;
+*********************************************************
+we pass function definition to events**
+onClick={setCount(count+1)}............wrong(this is function calling)
+onClick={()=>{setCount(count+1)}}........right(this is function definition)
+********************************Clean-up*****************************
+variation-1:
+=>no optional dependency array is passed.
+=>it runs after every render
+=>after Componentdidupdate(after every state update) it first return a function then it runs useEffect
+variation-2:
+=>there is presence of dependency array
+=>empty dependcy array
+=>after ComponentdidMount it first return a function then it runs useEffect only one time
+=> basically it work as Componentwillmount
+
+//context api 
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+
+syntax
+const value = useContext(MyContext);
+
+Accepts a context object (the value returned from React.createContext) and returns the current context value for that context. The current context value is determined by the value prop of the nearest <MyContext.Provider> above the calling component in the tree.
+
+// Context lets us pass a value deep into the component tree without taking it to every component hence saving cost.
+
+
+Every Context object comes with a Provider React component that allows consuming components to subscribe to context changes.
+
+<MyContext.Provider value={/* some value */}>
+
+The Provider component accepts a value prop to be passed to consuming components that are descendants of this Provider. One Provider can be connected to many consumers. Providers can be nested to override values deeper within the tree. i.e agr iske bheech ke componeent ne MyContext use kia to usko default ki jgh ye props vali value milegi or they'll consume this value.
+
+All consumers that are child of a Provider will re-render whenever the Provider’s value prop changes.
+
+ // Use a Provider to pass the current theme to the tree below.
+ // Any component can read it, no matter how deep it is.
